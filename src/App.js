@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react"
+import { Form } from './components/Form'
+import { Header } from './components/Header'
+import { Modal } from './components/Modal'
+import { Solicitudes } from './components/Solicitudes.jsx'
+import './assets/styles/main.css'
 
 function App() {
+
+  const [solicitudes, setSolicitudes] = useState([])
+  const [showForm, setShowForm] = useState(true)
+
+  const agregarSolcitiud = (nuevaSolicitud) => {
+
+    setSolicitudes([...solicitudes, nuevaSolicitud])
+    setShowForm(false)
+
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      {solicitudes.length > 0 &&
+      <Solicitudes lista={solicitudes} setShowForm={setShowForm} />
+      }
+      {showForm &&
+      <Form agregarSolcitiud={agregarSolcitiud} />
+      }
+    </>
   );
 }
 
