@@ -1,10 +1,42 @@
+import '../assets/styles/Soliitudes.css'
 
-const Solicitudes = ({lista, setShowForm}) => {
+
+const Solicitudes = ({lista, setShowForm, showForm, borrarSolicitud, editarSolicitud, determinarNombreArchivo}) => {
+
+    if(lista.length === 0){
+        return null
+    }
+
+    const determiarTipoGasto = (idTipo) => {
+        switch(Number(idTipo)){
+            case 1:
+                return 'Programación'
+            case 2:
+                return 'Reeombolso'
+            case 3:
+                return 'Asimilados'
+        }
+    }
+
+    const determiarComprobante = (idTipo) => {
+        switch(Number(idTipo)){
+            case 1:
+                return 'Factura'
+            case 2:
+                return 'Recibo de asimilados'
+            case 3:
+                return 'Recibo de honorarios'
+            case 4:
+                return 'Invoice'
+            case 5:
+                return 'Recibo no deducible'
+        }
+    }
 
     return(
-        <div className="container my-3">
+        <div className="container my-5">
             <div className="row">
-                <div className="col-12">
+                <div className="col-12" style={{overflowX: 'auto', whiteSpace: 'nowrap'}}>
                     <table className="table">
                         <thead>
                             <tr>
@@ -19,41 +51,54 @@ const Solicitudes = ({lista, setShowForm}) => {
                                 <th>Partida</th>
                                 <th>Importe</th>
                                 <th>Comprobante</th>
+                                <th>Archivo</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {lista.map( solicitud => {
+                            {lista.map( (solicitud, index) => {
 
-                                const {proveedor, clabe, banco, titular, rfc, email1, tipoGasto, descripcion, partida, importe, comprobante } = solicitud
+                                const {id, proveedor, clabe, banco, titular, rfc, email1, tipoGasto, descripcion, partida, importe, comprobante, archivo } = solicitud
 
                                 return(
-                                    <tr>
+                                    <tr key={`solicitud_${index + 1}`}>
                                         <td>{proveedor}</td>
                                         <td>{clabe}</td>
                                         <td>{banco}</td>
                                         <td>{titular}</td>
                                         <td>{rfc}</td>
                                         <td>{email1}</td>
-                                        <td>{tipoGasto}</td>
+                                        <td>{determiarTipoGasto(tipoGasto)}</td>
                                         <td>{descripcion}</td>
                                         <td>{partida}</td>
                                         <td>{importe}</td>
-                                        <td>{comprobante}</td>
+                                        <td>{determiarComprobante(comprobante)}</td>
+                                        <td>{determinarNombreArchivo(archivo).nombre}</td>
+                                        <td className="d-flex">
+                                            <button className="btn btn-dark me-1" onClick={() => editarSolicitud(id)}>
+                                                <i className="bi bi-pencil"></i>
+                                            </button>
+                                            <button className="btn btn-dark" onClick={() => borrarSolicitud(id)}>
+                                                <i className="bi bi-x-circle"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 )
                             })}
                         </tbody>
                     </table>
-                    <div className="col-12 text-end p-1">
-                        <button
-                            type="button"
-                            className="btn btn-primary"
-                            onClick={() => setShowForm(true)}
-                        >
-                            Agregar solicitud
-                        </button>
-                    </div>
                 </div>
+                {!showForm &&
+                <div className="col-12 text-end p-1">
+                    <button
+                        type="button"
+                        className="btn btn-secondary"
+                        onClick={() => setShowForm(true)}
+                    >
+                        Nueva trasnferencia
+                    </button>
+                </div>
+                }
             </div>
         </div>
     )

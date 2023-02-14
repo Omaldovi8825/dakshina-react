@@ -1,0 +1,18 @@
+.error-message{
+    color: red;
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.formaSolicitud{
+    background-color: #ececec;
+}
+
+.cancelFile{
+    position: absolute;
+    top: -20px;
+    right: -12px;
+    font-size: 25px;
+    cursor: pointer;
+}

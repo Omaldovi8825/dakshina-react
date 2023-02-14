@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useForm } from "react-hook-form";
+import '../assets/styles/Form.css'
 
-
-const Form = ({agregarSolcitiud}) => {
+const Form = ({agregarSolcitiud, showForm}) => {
 
     const estadoInicialForma = {
         proveedor: '',
@@ -18,41 +18,37 @@ const Form = ({agregarSolcitiud}) => {
         comprobante: 1,
     }
 
-    const [estadoFroma, setEstadoForma] = useState(estadoInicialForma)
-
-    const onInputChange = ({target}) => {
-
-        const {name, value} = target
-
-        setEstadoForma({
-            ...estadoFroma,
-            [name]: value 
-        })
-    }
+    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm({
+        defaultValues: estadoInicialForma
+    })
 
     const onFileUpload = ({target}) => {
         console.log(target)
     }
 
-    const onSumbit = (ev) => {
-
-        ev.preventDefault()
-        agregarSolcitiud(estadoFroma)
-        setEstadoForma(estadoInicialForma)
+    const onSumbit = (data) => {
+        // console.log(data)
+        agregarSolcitiud({id: `${data.proveedor}_${data.clabe}` ,...data})
+        reset()
     }
 
+    if(!showForm){
+        return null
+    }
+
+    console.log(errors)
+
     return(
-        <div className="container py-4">
-            <form className="row" onSubmit={onSumbit}>
+        <div className="container py-4 my-5 formaSolicitud">
+            <form className="row" onSubmit={handleSubmit(onSumbit)}>
                 <div className="col-12 col-md-6 mb-3">
                     <label className="form-label">Proveedor</label>
                     <input
                         type="text"
                         className="form-control"
-                        name="proveedor"
-                        onChange={onInputChange}
-                        value={estadoFroma.proveedor}
+                        {...register("proveedor", { required: false })}
                     />
+                    {errors.proveedor?.type === "required" && <p className="error-message">Dato requerido</p>}
                 </div>
                 <div className="col-12 col-md-6 mb-3">
                     {/* 18 */}
@@ -61,40 +57,39 @@ const Form = ({agregarSolcitiud}) => {
                         type="number"
                         className="form-control"
                         placeholder="Introduce los 18 dígitos de la cuenta bancaria"
-                        name="clabe"
-                        onChange={onInputChange}
-                        value={estadoFroma.clabe}
+                        // {...register("clabe", { required: false, minLength: 18, maxLength: 18 })}
+                        {...register("clabe", { required: false })}
                     />
+                    {errors.clabe?.type === "required" && <p className="error-message">Dato requerido</p>}
+                    {errors.clabe?.type === "minLength" && <p className="error-message">La CLABE contiene 18 dígitos</p>}
+                    {errors.clabe?.type === "maxLength" && <p className="error-message">La CLABE no debe exceder 18 dígitos</p>}
                 </div>
                 <div className="col-12 col-md-6 mb-3">
                     <label className="form-label">Nombre del banco</label>
                     <input
                         type="text"
                         className="form-control" 
-                        name="banco"
-                        onChange={onInputChange}
-                        value={estadoFroma.banco}
+                        {...register("banco", { required: false })}
                     />
+                    {errors.banco?.type === "required" && <p className="error-message">Dato requerido</p>}
                 </div>
                 <div className="col-12 col-md-6 mb-3">
                     <label className="form-label">Titular de la cuenta</label>
                     <input
                         type="text"
                         className="form-control"
-                        name="titular"
-                        onChange={onInputChange}
-                        value={estadoFroma.titular}
+                        {...register("titular", { required: false })}
                     />
+                    {errors.titular?.type === "required" && <p className="error-message">Dato requerido</p>}
                 </div>
                 <div className="col-12 col-md-6 mb-3">
                     <label className="form-label">RFC del proveedor</label>
                     <input
                         type="text"
                         className="form-control"
-                        name="rfc"
-                        onChange={onInputChange}
-                        value={estadoFroma.rfc}
+                        {...register("rfc", { required: false })}
                     />
+                    {errors.rfc?.type === "required" && <p className="error-message">Dato requerido</p>}
                 </div>
                 <div className="col-12 col-md-6 mb-3">
                     {/* 1 o 2 */}
@@ -102,10 +97,10 @@ const Form = ({agregarSolcitiud}) => {
                     <input
                         type="text"
                         className="form-control"
-                        name="email1"
-                        onChange={onInputChange}
-                        value={estadoFroma.email1}
+                        {...register("email1", { required: false, pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i })}
                     />
+                    {errors.email1?.type === "required" && <p className="error-message">Dato requerido</p>}
+                    {errors.email1?.type === "pattern" && <p className="error-message">Introduce un correo válido</p>}
                 </div>
                 <div className="col-12 col-md-6 mb-3">
                     {/* 1 o 2 */}
@@ -113,18 +108,16 @@ const Form = ({agregarSolcitiud}) => {
                     <input
                         type="text"
                         className="form-control"
-                        name="email2"
-                        onChange={onInputChange}
-                        value={estadoFroma.email2}
+                        {...register("email2", { pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i })}
                     />
+                    {errors.email2?.type === "pattern" && <p className="error-message">Introduce un correo válido</p>}
                 </div>
                 <div className="col-12 col-md-6 mb-3">
                     <label className="form-label">Tipo de gasto</label>
                     <select
                         className="form-control"
                         name="tipoGasto"
-                        onChange={onInputChange}
-                        value={estadoFroma.tipoGasto}
+                        {...register("tipoGasto")}
                     >
                         <option value="1">Programación</option>
                         <option value="2">Reembolso</option>
@@ -135,19 +128,17 @@ const Form = ({agregarSolcitiud}) => {
                     <label className="form-label">Descripción del gasto</label>
                     <textarea
                         className="form-control"
-                        name="descripcion"
-                        onChange={onInputChange}
-                        value={estadoFroma.descripcion}
+                        {...register("descripcion", { required: false })}
                     >
                     </textarea>
+                    {errors.descripcion?.type === "required" && <p className="error-message">Dato requerido</p>}
                 </div>
                 <div className="col-12 col-md-6 mb-3">
                     <label className="form-label">Partida presupuestal</label>
                     <select
                         className="form-control"
                         name="partida"
-                        onChange={onInputChange}
-                        value={estadoFroma.partida}
+                        {...register("partida")}
                     >
                         <option value="1">Algo</option>
                         <option value="2">Reembolso</option>
@@ -159,18 +150,17 @@ const Form = ({agregarSolcitiud}) => {
                         type="number"
                         className="form-control"
                         placeholder="importe neto a trasferir"
-                        name="importe"
-                        onChange={onInputChange}
-                        value={estadoFroma.importe}
+                        {...register("importe", { required: false, min: 1})}
                     />
+                    {errors.importe?.type === "required" && <p className="error-message">Dato requerido</p>}
+                    {errors.importe?.type === "min" && <p className="error-message">Mínimo $1 MXN</p>}
                 </div>
                 <div className="col-12 col-md-6 mb-3">
                     <label className="form-label">Comprobante</label>
                     <select
                         className="form-control"
                         name="comprobante"
-                        onChange={onInputChange}
-                        value={estadoFroma.comprobante}
+                        {...register("comprobante")}
                     >
                         <option value="1">Factura</option>
                         <option value="2">Recibo de asimilados</option>
