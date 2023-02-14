@@ -38,7 +38,7 @@ const Form = ({estadoForma, setEstadoForma, onSumbit, showForm, modo, determinar
     return(
         <div className="container py-4 my-5 formaSolicitud">
             <form className="row" onSubmit={onSumbit}>
-                <div className="col-12 col-md-6 mb-3">
+                <div className="col-12 col-md-6 col-lg-4 mb-3">
                     <label className="form-label">Tipo de gasto</label>
                     <select
                         className="form-control"
@@ -51,7 +51,7 @@ const Form = ({estadoForma, setEstadoForma, onSumbit, showForm, modo, determinar
                         <option value="3">Asimilados</option>
                     </select>
                 </div>
-                <div className="col-12 col-md-6 mb-3">
+                <div className="col-12 col-md-6 col-lg-4 mb-3">
                     <label className="form-label">Proveedor</label>
                     <input
                         type="text"
@@ -61,7 +61,7 @@ const Form = ({estadoForma, setEstadoForma, onSumbit, showForm, modo, determinar
                         onChange={onInputChange}
                     />
                 </div>
-                <div className="col-12 col-md-6 mb-3">
+                <div className="col-12 col-md-6 col-lg-4 mb-3">
                     {/* 18 */}
                     <label className="form-label">Clabe interbancaria</label>
                     <input
@@ -73,7 +73,7 @@ const Form = ({estadoForma, setEstadoForma, onSumbit, showForm, modo, determinar
                         onChange={onInputChange}
                     />
                 </div>
-                <div className="col-12 col-md-6 mb-3">
+                <div className="col-12 col-md-6 col-lg-4 mb-3">
                     <label className="form-label">Nombre del banco</label>
                     <input
                         type="text"
@@ -83,7 +83,7 @@ const Form = ({estadoForma, setEstadoForma, onSumbit, showForm, modo, determinar
                         onChange={onInputChange}
                     />
                 </div>
-                <div className="col-12 col-md-6 mb-3">
+                <div className="col-12 col-md-6 col-lg-4 mb-3">
                     <label className="form-label">Titular de la cuenta</label>
                     <input
                         type="text"
@@ -93,35 +93,13 @@ const Form = ({estadoForma, setEstadoForma, onSumbit, showForm, modo, determinar
                         onChange={onInputChange}
                     />
                 </div>
-                <div className="col-12 col-md-6 mb-3">
+                <div className="col-12 col-md-6 col-lg-4 mb-3">
                     <label className="form-label">RFC del proveedor</label>
                     <input
                         type="text"
                         className="form-control"
                         name="rfc"
                         value={estadoForma.rfc}
-                        onChange={onInputChange}
-                    />
-                </div>
-                <div className="col-12 col-md-6 mb-3">
-                    {/* 1 o 2 */}
-                    <label className="form-label">Correo electrónico</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        name="email1"
-                        value={estadoForma.email1}
-                        onChange={onInputChange}
-                    />
-                </div>
-                <div className="col-12 col-md-6 mb-3">
-                    {/* 1 o 2 */}
-                    <label className="form-label">Correo electrónico alterno</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        name="email2"
-                        value={estadoForma.email2}
                         onChange={onInputChange}
                     />
                 </div>
@@ -136,7 +114,29 @@ const Form = ({estadoForma, setEstadoForma, onSumbit, showForm, modo, determinar
                     >
                     </textarea>
                 </div>
-                <div className="col-12 col-md-6 mb-3">
+                <div className="col-12 col-md-6 col-lg-3 mb-3">
+                    {/* 1 o 2 */}
+                    <label className="form-label">Correo electrónico</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        name="email1"
+                        value={estadoForma.email1}
+                        onChange={onInputChange}
+                    />
+                </div>
+                <div className="col-12 col-md-6 col-lg-3 mb-3">
+                    {/* 1 o 2 */}
+                    <label className="form-label">Correo electrónico alterno</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        name="email2"
+                        value={estadoForma.email2}
+                        onChange={onInputChange}
+                    />
+                </div>
+                <div className="col-12 col-md-6 col-lg-4 mb-3">
                     <label className="form-label">Partida presupuestal</label>
                     <select
                         className="form-control"
@@ -148,7 +148,7 @@ const Form = ({estadoForma, setEstadoForma, onSumbit, showForm, modo, determinar
                         <option value="2">Reembolso</option>
                     </select>
                 </div>
-                <div className="col-12 col-md-6 mb-3">
+                <div className="col-12 col-md-6 col-lg-4 mb-3">
                     <label className="form-label">Importe</label>
                     <input
                         type="number"
@@ -159,7 +159,7 @@ const Form = ({estadoForma, setEstadoForma, onSumbit, showForm, modo, determinar
                         onChange={onInputChange}
                     />
                 </div>
-                <div className="col-12 col-md-6 mb-3">
+                <div className="col-12 col-md-6 col-lg-4 mb-3">
                     <label className="form-label">Comprobante</label>
                     <select
                         className="form-control"
@@ -205,7 +205,7 @@ const Form = ({estadoForma, setEstadoForma, onSumbit, showForm, modo, determinar
                     </>
                     }
                 </div>
-                <div className="col-12 text-end py-2">
+                <div className="col-12 col-md-6 mb-3 d-flex justify-content-end align-items-end">
                     <button
                         type="submit"
                         className="btn btn-secondary px-4"
