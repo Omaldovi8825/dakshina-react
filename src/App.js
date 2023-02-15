@@ -1,5 +1,9 @@
 import { useState } from "react"
+import { HashRouter, Routes, Route } from 'react-router-dom'
 // import { Form } from './components/Form'
+import { Login } from './components/Login'
+import { Home } from './components/Home'
+import { NotFound } from './components/NotFound'
 import { Form } from './components/FormTest'
 import { Header } from './components/Header'
 import { Modal } from './components/Modal'
@@ -82,8 +86,15 @@ function App() {
 
   return (
     <>
-      <Header />
-      <Solicitudes
+      <HashRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="*" element={<NotFound/>} />
+        </Routes>
+      </HashRouter>
+      {/* <Solicitudes
         lista={solicitudes}
         setShowForm={setShowForm}
         showForm={showForm}
@@ -99,7 +110,7 @@ function App() {
         showForm={showForm}
         modo={modo}
         determinarNombreArchivo={determinarNombreArchivo}
-      />
+      /> */}
     </>
   );
 }
