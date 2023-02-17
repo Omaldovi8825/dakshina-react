@@ -1,13 +1,17 @@
 import { useState } from "react"
 import { HashRouter, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './contexts/auth'
 // import { Form } from './components/Form'
-import { Login } from './components/Login'
-import { Home } from './components/Home'
-import { NotFound } from './components/NotFound'
-import { Form } from './components/FormTest'
-import { Header } from './components/Header'
-import { Modal } from './components/Modal'
-import { Solicitudes } from './components/Solicitudes.jsx'
+import { Login } from './pages/Login'
+import { Home } from './pages/Home'
+import { NotFound } from './pages/NotFound'
+import { RegistroUsuario } from './pages/RegistroUsuario'
+import { SolicitudPresupuesto } from './pages/SolicitudPresupuesto'
+// import { Form } from './components/FormTest'
+// import { Header } from './components/Header'
+// import { Modal } from './components/Modal'
+// import { Solicitudes } from './components/Solicitudes.jsx'
+import { MainHeader } from "./components/MainHeader"
 import './assets/styles/main.css'
 
 function App() {
@@ -68,31 +72,19 @@ function App() {
         : modificarSolicitud()
   }
 
-  const determinarNombreArchivo = (archivo) => {
-    if(!archivo){
-      return { nombre: ''}
-    }
-
-    const {name, type} = archivo
-    const [tipo, extension] = type.split('/')
-    const nombreArchivo = name.length > 10 ? `${name.substring(0,10)}...${extension}` : name
-    const icono = tipo === 'image' ? 'bi-file-image' : 'bi-filetype-pdf'
-    
-    return {
-        nombre: nombreArchivo,
-        icono
-    }
-  }
-
   return (
     <>
       <HashRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="*" element={<NotFound/>} />
-        </Routes>
+        < AuthProvider >
+          <MainHeader />
+          <Routes>
+            <Route path="/" element={<Home/>} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/usuarios/registro" element={<RegistroUsuario/>} />
+            <Route path="/solicitudes/presupuestos/registro" element={<SolicitudPresupuesto/>} />
+            <Route path="*" element={<NotFound/>} />
+          </Routes>
+        </ AuthProvider >
       </HashRouter>
       {/* <Solicitudes
         lista={solicitudes}
