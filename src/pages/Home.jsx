@@ -9,7 +9,7 @@ const Home = () => {
 
     useEffect(() => {
         if(!user) navigate('/login')
-    }, [])
+    })
     
     if(!user) return null
     // console.log('us', user)
@@ -30,4 +30,4 @@ const Home = () => {
     )
 }
 
-export {Home}
+export { Home }

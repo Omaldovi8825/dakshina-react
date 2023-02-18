@@ -1,26 +1,27 @@
 
-const Input = ({ type, name, value, onChange }) => {
-
-    if(type === "textarea"){
-        return(
-            <textarea
-                className="form-control"
-                name="descripcion"
-                value={value}
-                onChange={onChange}
-            >
-            </textarea>
-        )
-    }
-
+const Input = ({ type, name, value, placeholder, onChange }) => {
     return(
         <input
             type={type}
             className="form-control"
             name={name}
             value={value}
+            placeholder={placeholder}
             onChange={onChange}
         />
+    )
+}
+
+const TextArea = ({ name, value, placeholder, onChange }) => {
+    return(
+        <textarea
+            className="form-control"
+            name={name}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+        >
+        </textarea>
     )
 }
 
@@ -39,16 +40,29 @@ const Select = ({ name, value, options, onChange }) => {
     )
 }
 
+const InputType = (props) => {
+
+    switch(props.type){
+        case "select":
+            return <Select {...props} />
+        case "textarea":
+            return <TextArea {...props} />
+        default:
+            return <Input {...props} />
+    }
+
+}
+
 const InputContainer = (props) => {
 
-    const { type, label } = props
+    const {label, sublabel, clase } = props
 
     return(
-        <div className="col-12 col-md-6 col-lg-4 mb-3">
+        <div className={`col-12 ${clase} mb-3`}>
             <label className="form-label">{label}</label>
-            {type === "select"
-                ? <Select {...props} />
-                : <Input {...props} />
+            <InputType {...props} />
+            {sublabel &&
+            <div className="form-text">{sublabel}</div>
             }
         </div>
     )
@@ -62,8 +76,8 @@ const FormContainer = ({ textoBoton, children, cancelar, onSubmit, onCancelSubmi
     }
 
     return(
-        <div className="container py-3 colorForma">
-            <form className="row" onSubmit={handleSubmit}>
+        <div className="container mb-4">
+            <form className="row colorForma py-3" onSubmit={handleSubmit}>
                 {children}
                 <div className="col-12 text-end">
                     {cancelar &&

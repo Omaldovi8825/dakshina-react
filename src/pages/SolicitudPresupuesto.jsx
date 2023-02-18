@@ -1,9 +1,9 @@
-import { useState } from "react"
 import { FormContainer, InputContainer } from '../components/FormContainer'
 import { TablaSolicitudes } from '../components/TablaSolicitudes'
 import { useSolicitudes, SolicitudProvider } from '../contexts/solicitudes'
 import { determinarNombreArchivo } from '../assets/utils/utils'
 import '../assets/styles/Form.css'
+import { Heading } from "../components/Heading"
 
 const FileUpload = ({ onFileUpload, eliminarArchivo, archivo }) => {
 
@@ -87,18 +87,70 @@ const FormaSolciitud = () => {
     ]
 
     const inputsForma = [
-        { type: "select", name: "tipoGasto", label: "Tipo de gasto", options: optionsTipoGasto },
-        { type: "text", name: "proveedor", label: "Proveedor" },
-        { type: "number", name: "clabe", label: "CLABE interbancaria" },
-        { type: "text", name: "banco", label: "Nombre del banco" },
-        { type: "text", name: "titular", label: "Titular de la cuenta" },
-        { type: "text", name: "rfc", label: "RFC del proveedor" },
-        { type: "text", name: "email1", label: "Correo electrónico" },
-        { type: "text", name: "email2", label: "Correo electrónico alterno" },
-        { type: "select", name: "partida", label: "Partida presupuestal", options: optionsPartida },
-        { type: "textarea", name: "descripcion", label: "Descripción del gasto" },
-        { type: "number", name: "importe", label: "Importe" },
-        { type: "select", name: "comprobante", label: "Comprobante", options: optionsComprobante },
+        {
+            type: "select",
+            name: "tipoGasto",
+            label: "Tipo de gasto",
+            options: optionsTipoGasto
+        },
+        {
+            type: "text",
+            name: "proveedor",
+            label: "Proveedor",
+            placeholder: "Escribe el proveedor"
+        },
+        {
+            type: "number",
+            name: "clabe",
+            label: "CLABE interbancaria"
+        },
+        {
+            type: "text",
+            name: "banco",
+            label: "Nombre del banco"
+        },
+        { 
+            type: "text",
+            name: "titular",
+            label: "Titular de la cuenta"
+        },
+        { 
+            type: "text",
+            name: "rfc",
+            label: "RFC del proveedor"
+        },
+        {
+            type: "text",
+            name: "email1",
+            label: "Correo electrónico"
+        },
+        { 
+            type: "text",
+            name: "email2",
+            label: "Correo electrónico alterno"
+        },
+        { 
+            type: "select",
+            name: "partida",
+            label: "Partida presupuestal",
+            options: optionsPartida 
+        },
+        {
+            type: "textarea",
+            name: "descripcion",
+            label: "Descripción del gasto",
+        },
+        {
+            type: "number",
+            name: "importe",
+            label: "Importe"
+        },
+        {
+            type: "select",
+            name: "comprobante",
+            label: "Comprobante",
+            options: optionsComprobante
+        },
     ]
 
     if(!showForm) return null
@@ -115,6 +167,7 @@ const FormaSolciitud = () => {
                 key={`input_${input.name}`}
                 onChange={handleInputChange}
                 value={estadoForma[input.name]}
+                clase="col-md-6 col-lg-4"
                 {...input}
             />
         ))}
@@ -130,6 +183,7 @@ const FormaSolciitud = () => {
 const SolicitudPresupuesto = () => {
     return(
         <SolicitudProvider>
+            <Heading titulo="Crear solicitud de presupuesto" />
             <TablaSolicitudes />
             <FormaSolciitud />
         </SolicitudProvider>

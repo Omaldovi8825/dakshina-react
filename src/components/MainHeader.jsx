@@ -18,13 +18,13 @@ const MainHeader = memo(() => {
     return(
         <header className="container-fluid py-3 mb-5 colorHeader">
             <div className="row">
-                <div className="col-6 d-flex align-items-center">
+                <div className="col-12 col-sm-6 d-flex align-items-center">
                     <img src={logo} width="150" alt="logo dakshina" />
                     <Link to="/">
                         <i className="bi bi-house-check text-white mx-3" style={{fontSize: '35px'}}></i>
                     </Link>
                 </div>
-                <div className="col-6 justify-content-end d-flex align-items-center">
+                <div className="col-12 col-sm-6 justify-content-end d-flex align-items-center">
                     <button
                         type="button"
                         style={{border: 'none', background:'none', color: 'white'}}

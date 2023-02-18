@@ -32,11 +32,11 @@ const SOLCIITUDES = new AccionUsuario( 3, 'Solicitudes', '/solicitudes/presupues
 const REGISTRO_ASIMILADOS = new AccionUsuario( 4, 'Registro asimilados', '/asimilados/registro', 'bi-person-bounding-box' )
 
 const SUPER_USUARIO = new RolUsario( 1, 'SUPER_USUARIO', [ REGISTRO_USUARIO, SOLCIITUD_PRESUPUESTO, SOLCIITUDES, REGISTRO_ASIMILADOS ])
-const ADMINISTRADOR = new RolUsario( 2, 'ADMINISTRADOR', [ SOLCIITUD_PRESUPUESTO ])
+const ADMINISTRADOR = new RolUsario( 2, 'ADMINISTRADOR', [ SOLCIITUD_PRESUPUESTO, REGISTRO_ASIMILADOS ])
 
 const usuarios = [
-    new Usuario( 1, 'Isabel', 'Flores', 'iflores@dakshina.org.mx', 'I472350o.', SUPER_USUARIO ),
-    new Usuario( 2, 'Omar', 'Maldonado', 'omar.maldo.vi@gmail.com', '112358', ADMINISTRADOR )
+    new Usuario( 1, 'Isabel', 'Flores', 'iflores@dakshina.org.mx', '123', SUPER_USUARIO ),
+    new Usuario( 2, 'Omar', 'Maldonado', 'omar.maldo.vi@gmail.com', '123', ADMINISTRADOR )
 ]
 
 export { usuarios }
