@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/dakshina-react/static/css/main.09219a29.css",
-    "main.js": "/dakshina-react/static/js/main.58af0389.js",
+    "main.css": "/dakshina-react/static/css/main.2a78cd5b.css",
+    "main.js": "/dakshina-react/static/js/main.9fe81651.js",
     "static/media/bootstrap-icons.woff?": "/dakshina-react/static/media/bootstrap-icons.6959d0d983ee318f8880.woff",
     "static/media/bootstrap-icons.woff2?": "/dakshina-react/static/media/bootstrap-icons.b2e5aab643c6f0fd2da6.woff2",
     "static/media/logo.jpeg": "/dakshina-react/static/media/logo.bb3edfdc2143a4c90cd4.jpeg",
     "index.html": "/dakshina-react/index.html",
-    "main.09219a29.css.map": "/dakshina-react/static/css/main.09219a29.css.map",
-    "main.58af0389.js.map": "/dakshina-react/static/js/main.58af0389.js.map"
+    "main.2a78cd5b.css.map": "/dakshina-react/static/css/main.2a78cd5b.css.map",
+    "main.9fe81651.js.map": "/dakshina-react/static/js/main.9fe81651.js.map"
   },
   "entrypoints": [
-    "static/css/main.09219a29.css",
-    "static/js/main.58af0389.js"
+    "static/css/main.2a78cd5b.css",
+    "static/js/main.9fe81651.js"
   ]
 }
