@@ -13,7 +13,7 @@ const FileUpload = ({ onFileUpload, eliminarArchivo, archivo }) => {
             ?
             (<label className="form-label w-100">
                 Comporbaciones
-                <i className="bi bi-file-earmark-text text-center d-block" style={{fontSize: '80px', cursor: 'pointer'}}></i>
+                <i className="bi bi-file-earmark-text text-center d-block fileUpload"></i>
                 <input
                     type="file"
                     className="d-none"
@@ -26,7 +26,7 @@ const FileUpload = ({ onFileUpload, eliminarArchivo, archivo }) => {
             (<>
             <label className="form-label">Archivo adjunto</label>
             <div className="d-flex justify-content-center">
-                <div className="border border-info rounded p-2 text-center" style={{position: 'relative'}}>
+                <div className="fileContainer p-2 text-center">
                     <i
                         className={`bi ${determinarNombreArchivo(archivo).icono} d-block`}
                         style={{fontSize: '80px'}}
