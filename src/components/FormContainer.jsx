@@ -54,12 +54,27 @@ const InputContainer = (props) => {
     )
 }
 
-const FormContainer = ({ textoBoton, children, onSubmit }) => {
+const FormContainer = ({ textoBoton, children, cancelar, onSubmit, onCancelSubmit }) => {
+
+    const handleSubmit = (ev) => {
+        ev.preventDefault()
+        onSubmit()
+    }
+
     return(
         <div className="container py-3 colorForma">
-            <form className="row" onSubmit={onSubmit}>
+            <form className="row" onSubmit={handleSubmit}>
                 {children}
                 <div className="col-12 text-end">
+                    {cancelar &&
+                    <button
+                        className="btn btn-secondary me-2"
+                        type="button"
+                        onClick={onCancelSubmit}
+                    >
+                        Cancelar
+                    </button>
+                    }
                     <button className="btn btn-secondary" type="submit">{textoBoton || 'Enviar'}</button>
                 </div>
             </form>

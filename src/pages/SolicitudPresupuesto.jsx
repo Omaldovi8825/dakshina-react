@@ -1,24 +1,11 @@
 import { useState } from "react"
 import { FormContainer, InputContainer } from '../components/FormContainer'
+import { TablaSolicitudes } from '../components/TablaSolicitudes'
+import { useSolicitudes, SolicitudProvider } from '../contexts/solicitudes'
+import { determinarNombreArchivo } from '../assets/utils/utils'
 import '../assets/styles/Form.css'
 
 const FileUpload = ({ onFileUpload, eliminarArchivo, archivo }) => {
-
-    const determinarNombreArchivo = (archivo) => {
-        if(!archivo){
-          return { nombre: ''}
-        }
-    
-        const {name, type} = archivo
-        const [tipo, extension] = type.split('/')
-        const nombreArchivo = name.length > 10 ? `${name.substring(0,10)}...${extension}` : name
-        const icono = tipo === 'image' ? 'bi-file-image' : 'bi-filetype-pdf'
-        
-        return {
-            nombre: nombreArchivo,
-            icono
-        }
-    }
 
     return(
         <div className="col-12 col-md-4">
@@ -55,55 +42,29 @@ const FileUpload = ({ onFileUpload, eliminarArchivo, archivo }) => {
     )
 }
 
-const SolicitudPresupuesto = () => {
+const FormaSolciitud = () => {
 
-    const estadoInicialForma = {
-        proveedor: '',
-        clabe: '',
-        banco: '',
-        titular: '',
-        rfc: '',
-        email1: '',
-        email2: '',
-        tipoGasto: 1,
-        descripcion: '',
-        partida: 1,
-        importe: '',
-        comprobante: 1,
-        archivo: null
-    }
 
-    const [ estadoForma, setEstadoForma ]  = useState(estadoInicialForma)
-
+    const { solicitudes, modo, showForm, agregarSolcitiud, modificarSolicitud, estadoForma, updateEstadoForma, limpiarForma } = useSolicitudes()
+    
     const handleInputChange = ({target}) => {
-
         const { name, value } = target
-        setEstadoForma({
-            ...estadoForma,
-            [name]: value
-        })
+        updateEstadoForma( name,value )
     }
 
     const eliminarArchivo = () => {
-        setEstadoForma({
-            ...estadoForma,
-            archivo: null
-        })
+        updateEstadoForma( 'archivo', null )
     }
 
     const onFileUpload = ({target}) => {
-       
         const [file] = target.files
-        setEstadoForma({
-            ...estadoForma,
-            archivo: file
-        })
+        updateEstadoForma( 'archivo', file )
     }
 
-    const onSubmit = (ev) => {
-
-        ev.preventDefault()
-        console.log(estadoForma)
+    const onSubmit = () => {
+        modo === 'crear' 
+            ? agregarSolcitiud({id: `${estadoForma.proveedor}_${estadoForma.clabe}` ,...estadoForma})
+            : modificarSolicitud()
     }
 
     const optionsTipoGasto = [
@@ -140,15 +101,20 @@ const SolicitudPresupuesto = () => {
         { type: "select", name: "comprobante", label: "Comprobante", options: optionsComprobante },
     ]
 
+    if(!showForm) return null
+
     return(
         <FormContainer
-            textoBoton="Guardar"
+            textoBoton={ modo === 'crear' ? 'Agregar' : 'Guardar'}
+            cancelar={ solicitudes.length > 0 ? true : false }
             onSubmit={onSubmit}
+            onCancelSubmit={limpiarForma}
         >
         {inputsForma.map(( input ) => (
             <InputContainer
                 key={`input_${input.name}`}
                 onChange={handleInputChange}
+                value={estadoForma[input.name]}
                 {...input}
             />
         ))}
@@ -158,6 +124,15 @@ const SolicitudPresupuesto = () => {
                 archivo={estadoForma.archivo}
             />
         </FormContainer>
+    )
+}
+
+const SolicitudPresupuesto = () => {
+    return(
+        <SolicitudProvider>
+            <TablaSolicitudes />
+            <FormaSolciitud />
+        </SolicitudProvider>
     )
 }
 

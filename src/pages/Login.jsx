@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { useAuth } from "../contexts/auth"
-import { Header } from "../components/Header"
 
 const Login = () => {
 
@@ -9,7 +8,7 @@ const Login = () => {
         password: ''
     }
 
-    const {user, login, error} = useAuth()
+    const { login, error } = useAuth()
     const [ usuario, setUsuario ] = useState(estadoInicialUsuario)
 
     const onInputChange = ({target}) => {
@@ -34,10 +33,10 @@ const Login = () => {
                 <div className="col-12 col-lg-4"></div>
                 <div className="col-12 col-lg-4">
                     <form
-                        className="row py-3 colorForma"
+                        className="p-3 colorForma"
                         onSubmit={onSubmit}
                     >
-                        <div className="col-12 mb-3">
+                        <div className="mb-3">
                             <label className="form-label">Usuario</label>
                             <input
                                 type="text"
@@ -48,7 +47,7 @@ const Login = () => {
                                 onChange={onInputChange}
                             />
                         </div>
-                        <div className="col-12 mb-3">
+                        <div className="mb-3">
                             <label className="form-label">Contraseña</label>
                             <input
                                 type="password"
@@ -58,7 +57,7 @@ const Login = () => {
                                 onChange={onInputChange}
                             />
                         </div>
-                        <div className="col-12 text-center mb-3">
+                        <div className="text-center mb-3">
                             <button
                                 type="submit"
                                 className="btn btn-secondary"

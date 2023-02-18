@@ -6,8 +6,8 @@ const AuthContext = createContext()
 
 const AuthProvider = ({children}) => {
 
-    const [user, setUser] = useState(null)
-    // const [user, setUser] = useState(usuarios[0])
+    // const [user, setUser] = useState(null)
+    const [user, setUser] = useState(usuarios[0])
     const [error, setError] = useState(false)
     const navigate = useNavigate()
 

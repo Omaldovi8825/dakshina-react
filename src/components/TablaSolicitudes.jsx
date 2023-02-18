@@ -1,11 +1,10 @@
 import '../assets/styles/Soliitudes.css'
+import { useSolicitudes } from '../contexts/solicitudes.js'
+import { determinarNombreArchivo } from '../assets/utils/utils'
 
+const TablaSolicitudes = () => {
 
-const Solicitudes = ({lista, setShowForm, showForm, borrarSolicitud, editarSolicitud, determinarNombreArchivo}) => {
-
-    if(lista.length === 0){
-        return null
-    }
+    const { solicitudes, mostrarFormatonuevaSolicitud, showForm, borrarSolicitud, editarSolicitud } = useSolicitudes()
 
     const determiarTipoGasto = (idTipo) => {
         switch(Number(idTipo)){
@@ -33,6 +32,10 @@ const Solicitudes = ({lista, setShowForm, showForm, borrarSolicitud, editarSolic
         }
     }
 
+    if(solicitudes.length === 0){
+        return null
+    }
+
     return(
         <div className="container my-5">
             <div className="row">
@@ -56,7 +59,7 @@ const Solicitudes = ({lista, setShowForm, showForm, borrarSolicitud, editarSolic
                             </tr>
                         </thead>
                         <tbody>
-                            {lista.map( (solicitud, index) => {
+                            {solicitudes.map( (solicitud, index) => {
 
                                 const {id, proveedor, clabe, banco, titular, rfc, email1, tipoGasto, descripcion, partida, importe, comprobante, archivo } = solicitud
 
@@ -93,7 +96,7 @@ const Solicitudes = ({lista, setShowForm, showForm, borrarSolicitud, editarSolic
                     <button
                         type="button"
                         className="btn btn-secondary"
-                        onClick={() => setShowForm(true)}
+                        onClick={mostrarFormatonuevaSolicitud}
                     >
                         Nueva trasnferencia
                     </button>
@@ -104,4 +107,4 @@ const Solicitudes = ({lista, setShowForm, showForm, borrarSolicitud, editarSolic
     )
 }
 
-export {Solicitudes}
+export { TablaSolicitudes }
